@@ -26,7 +26,7 @@ impl CtAsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -34,7 +34,7 @@ impl CtAsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .ct_as
     ///         .match_ctas(
@@ -74,7 +74,7 @@ impl CtAsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -82,7 +82,7 @@ impl CtAsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .ct_as
     ///         .log_cta_click(

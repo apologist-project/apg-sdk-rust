@@ -27,7 +27,7 @@ impl ChatClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -35,7 +35,7 @@ impl ChatClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .chat
     ///         .list_chat_completions(
@@ -95,7 +95,7 @@ impl ChatClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -103,7 +103,7 @@ impl ChatClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .chat
     ///         .create_chat_completion(
@@ -143,7 +143,7 @@ impl ChatClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -151,7 +151,7 @@ impl ChatClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .chat
     ///         .like_completion(&"id".to_string(), &LikeRequest { liked: true }, None)
@@ -189,7 +189,7 @@ impl ChatClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -197,7 +197,7 @@ impl ChatClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .chat
     ///         .flag_completion(&"id".to_string(), &FlagRequest { flagged: true }, None)
@@ -235,7 +235,7 @@ impl ChatClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -243,7 +243,7 @@ impl ChatClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .chat
     ///         .feedback_completion(
@@ -287,7 +287,7 @@ impl ChatClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -295,7 +295,7 @@ impl ChatClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .chat
     ///         .share_completion(
@@ -339,7 +339,7 @@ impl ChatClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -347,7 +347,7 @@ impl ChatClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .chat
     ///         .get_chat_completion(&"id".to_string(), None)

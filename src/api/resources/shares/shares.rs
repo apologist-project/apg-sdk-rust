@@ -27,7 +27,7 @@ impl SharesClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -35,7 +35,7 @@ impl SharesClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .shares
     ///         .get_shared_messages(&"token".to_string(), None)

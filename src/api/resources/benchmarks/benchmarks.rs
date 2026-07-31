@@ -29,7 +29,7 @@ impl BenchmarksClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -37,7 +37,7 @@ impl BenchmarksClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .benchmarks
     ///         .list_benchmark_runs(
@@ -93,7 +93,7 @@ impl BenchmarksClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -101,7 +101,7 @@ impl BenchmarksClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .benchmarks
     ///         .run_benchmark(
@@ -146,7 +146,7 @@ impl BenchmarksClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -154,7 +154,7 @@ impl BenchmarksClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .benchmarks
     ///         .get_benchmark_run(&"id".to_string(), &"runId".to_string(), None)
