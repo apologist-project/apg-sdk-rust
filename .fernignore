@@ -1,0 +1,7 @@
+# Version and crate metadata
+Cargo.toml
+
+# Publish workflow (bootstrap token + Trusted Publishing)
+.github/workflows/ci.yml
+
+LICENSE
