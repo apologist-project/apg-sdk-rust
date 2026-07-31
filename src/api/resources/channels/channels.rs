@@ -28,7 +28,7 @@ impl ChannelsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -36,7 +36,7 @@ impl ChannelsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .channels
     ///         .get_discord_channel_status(&"id".to_string(), None)
@@ -74,7 +74,7 @@ impl ChannelsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -82,7 +82,7 @@ impl ChannelsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .channels
     ///         .receive_discord_interaction(
@@ -128,7 +128,7 @@ impl ChannelsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -136,7 +136,7 @@ impl ChannelsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .channels
     ///         .verify_facebook_webhook(
@@ -187,7 +187,7 @@ impl ChannelsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -195,7 +195,7 @@ impl ChannelsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .channels
     ///         .receive_facebook_message(
@@ -237,7 +237,7 @@ impl ChannelsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -245,7 +245,7 @@ impl ChannelsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .channels
     ///         .get_instagram_privacy_policy(&"id".to_string(), None)
@@ -283,7 +283,7 @@ impl ChannelsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -291,7 +291,7 @@ impl ChannelsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .channels
     ///         .receive_telegram_update(
@@ -333,7 +333,7 @@ impl ChannelsClient {
     /// # Examples
     ///
     /// ```no_run
-    /// use apologist_ai_api::prelude::*;
+    /// use apologist::prelude::*;
     ///
     /// #[tokio::main]
     /// async fn main() {
@@ -341,7 +341,7 @@ impl ChannelsClient {
     ///         api_key: Some("<value>".to_string()),
     ///         ..Default::default()
     ///     };
-    ///     let client = ApiClient::new(config).expect("Failed to build client");
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
     ///     client
     ///         .channels
     ///         .receive_twilio_message(

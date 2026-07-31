@@ -27,7 +27,7 @@ Returns a paginated list of chat completions (prompts) for the agent, with appli
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -35,7 +35,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .list_chat_completions(
@@ -235,7 +235,7 @@ Creates a chat completion using the agent's configured model. Supports both stre
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -243,7 +243,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .create_chat_completion(
@@ -290,7 +290,7 @@ Updates the like status of a specific chat completion
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -298,7 +298,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .like_completion(&"id".to_string(), &LikeRequest { liked: true }, None)
@@ -365,7 +365,7 @@ Updates the flagged status of a specific chat completion
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -373,7 +373,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .flag_completion(&"id".to_string(), &FlagRequest { flagged: true }, None)
@@ -440,7 +440,7 @@ Adds user feedback to a specific chat completion
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -448,7 +448,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .feedback_completion(
@@ -521,7 +521,7 @@ Creates a share record for a specific chat completion
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -529,7 +529,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .share_completion(
@@ -618,7 +618,7 @@ Returns a single chat completion (prompt) by numeric id or UUID, including appli
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -626,7 +626,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .get_chat_completion(&"id".to_string(), None)
@@ -686,7 +686,7 @@ Performs a semantic search across the agent's corpus of knowledge
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -694,7 +694,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .corpus
         .search_corpus(
@@ -785,7 +785,7 @@ Records that a user viewed a specific corpus item
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -793,7 +793,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .corpus
         .log_corpus_view(
@@ -884,7 +884,7 @@ Records that a corpus item was shown to a user
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -892,7 +892,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .corpus
         .log_corpus_impression(
@@ -983,7 +983,7 @@ Records a referral for a corpus item and, when a `url` is supplied, issues a 302
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -991,7 +991,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .corpus
         .log_corpus_referral_redirect(
@@ -1091,7 +1091,7 @@ Records that a user was referred to a corpus item
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1099,7 +1099,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .corpus
         .log_corpus_referral(
@@ -1191,7 +1191,7 @@ Returns a paginated list of evaluations for the evaluator, scoped to the request
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1199,7 +1199,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .evaluators
         .list_evaluations(
@@ -1360,7 +1360,7 @@ Runs an evaluation on the provided content using the specified evaluator
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1368,7 +1368,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .evaluators
         .evaluate_content(
@@ -1522,7 +1522,7 @@ Returns a single evaluation for the evaluator, scoped to the requesting agent.
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1530,7 +1530,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .evaluators
         .get_evaluation(&"id".to_string(), &"evaluationId".to_string(), None)
@@ -1598,7 +1598,7 @@ Finds matching CTAs based on conversation context, user, session, device, or mes
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1606,7 +1606,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .ct_as
         .match_ctas(
@@ -1653,7 +1653,7 @@ Records that a user clicked on a specific CTA
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1661,7 +1661,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .ct_as
         .log_cta_click(
@@ -1735,7 +1735,7 @@ Returns a paginated list of users for the agent's team, with applied tags expand
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1743,7 +1743,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .users
         .list_users(
@@ -1855,7 +1855,7 @@ Returns a paginated list of user flag definitions for the agent's team (all colu
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1863,7 +1863,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .users
         .list_user_flags(
@@ -1935,7 +1935,7 @@ Returns a single user by external id or internal id, with expanded tags and the 
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -1943,7 +1943,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client.users.get_user(&"user_id".to_string(), None).await;
 }
 ```
@@ -1999,7 +1999,7 @@ Updates a user's external_id and/or tags and upserts the persisted responder for
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2007,7 +2007,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .users
         .update_user(
@@ -2097,7 +2097,7 @@ Returns a paginated list of runs for a benchmark, scoped to the requesting agent
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2105,7 +2105,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .benchmarks
         .list_benchmark_runs(
@@ -2258,7 +2258,7 @@ Executes a benchmark run and returns the aggregated result with nested evaluator
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2266,7 +2266,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .benchmarks
         .run_benchmark(
@@ -2443,7 +2443,7 @@ Returns a single benchmark run by id or UUID, scoped to the requesting agent, in
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2451,7 +2451,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .benchmarks
         .get_benchmark_run(&"id".to_string(), &"runId".to_string(), None)
@@ -2519,7 +2519,7 @@ Returns the status of the Discord channel. Used as a lightweight health/verifica
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2527,7 +2527,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .channels
         .get_discord_channel_status(&"id".to_string(), None)
@@ -2586,7 +2586,7 @@ Receives Discord interaction callbacks for the channel. Requests are verified vi
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2594,7 +2594,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .channels
         .receive_discord_interaction(
@@ -2661,7 +2661,7 @@ Handles the Meta webhook verification handshake, echoing `hub.challenge` when `h
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2669,7 +2669,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .channels
         .verify_facebook_webhook(
@@ -2760,7 +2760,7 @@ Receives Facebook/Messenger (and Instagram-style) message events for the channel
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2768,7 +2768,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .channels
         .receive_facebook_message(
@@ -2831,7 +2831,7 @@ Returns a static HTML privacy policy page for the Instagram integration.
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2839,7 +2839,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .channels
         .get_instagram_privacy_policy(&"id".to_string(), None)
@@ -2898,7 +2898,7 @@ Receives Telegram bot update events for the channel. Non-message updates are ack
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2906,7 +2906,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .channels
         .receive_telegram_update(
@@ -2969,7 +2969,7 @@ Receives inbound Twilio messages for the channel as form-encoded data. Payload f
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -2977,7 +2977,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .channels
         .receive_twilio_message(
@@ -3059,7 +3059,7 @@ Public, unauthenticated read of the messages behind a share token. The token is 
 <dd>
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -3067,7 +3067,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .shares
         .get_shared_messages(&"token".to_string(), None)

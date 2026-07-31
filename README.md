@@ -1,7 +1,7 @@
 # ApologistAi Rust Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=ApologistAi%2FRust)
-[![crates.io shield](https://img.shields.io/crates/v/apologist_ai_api)](https://crates.io/crates/apologist_ai_api)
+[![crates.io shield](https://img.shields.io/crates/v/apologist)](https://crates.io/crates/apologist)
 
 The ApologistAi Rust library provides convenient access to the ApologistAi APIs from Rust.
 
@@ -26,13 +26,13 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-apologist_ai_api = "0.0.1"
+apologist = "0.0.1"
 ```
 
 Or install via cargo:
 
 ```sh
-cargo add apologist_ai_api
+cargo add apologist
 ```
 
 ## Reference
@@ -44,7 +44,7 @@ A full reference for this library is available [here](./reference.md).
 Instantiate and use the client with the following:
 
 ```rust
-use apologist_ai_api::prelude::*;
+use apologist::prelude::*;
 
 #[tokio::main]
 async fn main() {
@@ -52,7 +52,7 @@ async fn main() {
         api_key: Some("<value>".to_string()),
         ..Default::default()
     };
-    let client = ApiClient::new(config).expect("Failed to build client");
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
     client
         .chat
         .create_chat_completion(
@@ -68,7 +68,7 @@ async fn main() {
 This SDK allows you to configure different environments for API requests.
 
 ```rust
-use apologist_ai_api::prelude::{*};
+use apologist::prelude::{*};
 
 let config = ClientConfig {
     base_url: Environment::Default.url().to_string(),
@@ -100,7 +100,7 @@ match client.chat.create_chat_completion(None)?.await {
 The SDK exports all request types as Rust structs. Simply import them from the crate to access them:
 
 ```rust
-use apologist_ai_api::prelude::{*};
+use apologist::prelude::{*};
 
 let request = LikeRequest {
     ...

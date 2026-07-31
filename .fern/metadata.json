@@ -2,6 +2,13 @@
   "cliVersion": "5.72.1",
   "generatorName": "fernapi/fern-rust-sdk",
   "generatorVersion": "0.44.0",
+  "generatorConfig": {
+    "clientClassName": "ApologistAgentClient",
+    "crateName": "apologist",
+    "packageRepository": "https://github.com/apologist-project/apg-sdk-rust",
+    "packageDocumentation": "https://docs.apologist.ai",
+    "packageDescription": "Official Rust SDK for the Apologist Agent API"
+  },
   "originGitCommit": "bed785c05c5bfb53f26bc1e786c4361a189f15b4",
   "originGitCommitIsDirty": true,
   "invokedBy": "manual",

@@ -23,7 +23,7 @@ pub mod evaluators;
 pub mod shares;
 pub mod users;
 pub mod webhooks;
-pub struct ApiClient {
+pub struct ApologistAgentClient {
     pub config: ClientConfig,
     pub chat: ChatClient,
     pub corpus: CorpusClient,
@@ -35,7 +35,7 @@ pub struct ApiClient {
     pub shares: SharesClient,
 }
 
-impl ApiClient {
+impl ApologistAgentClient {
     pub fn new(config: ClientConfig) -> Result<Self, ApiError> {
         Ok(Self {
             config: config.clone(),

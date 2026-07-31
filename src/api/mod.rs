@@ -12,7 +12,7 @@ pub mod resources;
 pub mod types;
 
 pub use resources::{
-    ApiClient, BenchmarksClient, ChannelsClient, ChatClient, CorpusClient, CtAsClient,
+    ApologistAgentClient, BenchmarksClient, ChannelsClient, ChatClient, CorpusClient, CtAsClient,
     EvaluatorsClient, SharesClient, UsersClient, WebhooksClient,
 };
 pub use types::*;
