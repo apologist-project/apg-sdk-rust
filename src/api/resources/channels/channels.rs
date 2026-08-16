@@ -466,4 +466,113 @@ impl ChannelsClient {
             )
             .await
     }
+
+    /// Handles the Meta WhatsApp Cloud API webhook verification handshake, echoing `hub.challenge` when `hub.verify_token` matches the channel's configured token.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The channel id
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// Text response
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .channels
+    ///         .verify_whats_app_webhook(
+    ///             &"id".to_string(),
+    ///             &VerifyWhatsAppWebhookQueryRequest {
+    ///                 hub_mode: VerifyWhatsAppWebhookRequestHubMode::Subscribe,
+    ///                 hub_verify_token: "hub.verify_token".to_string(),
+    ///                 hub_challenge: None,
+    ///             },
+    ///             None,
+    ///         )
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn verify_whats_app_webhook(
+        &self,
+        id: &str,
+        request: &VerifyWhatsAppWebhookQueryRequest,
+        options: Option<RequestOptions>,
+    ) -> Result<String, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::GET,
+                &format!("channels/{}/whatsapp", id),
+                None,
+                QueryBuilder::new()
+                    .serialize("hub.mode", Some(request.hub_mode.clone()))
+                    .string("hub.verify_token", request.hub_verify_token.clone())
+                    .string("hub.challenge", request.hub_challenge.clone())
+                    .build(),
+                options,
+            )
+            .await
+    }
+
+    /// Receives WhatsApp Cloud API message events for the channel. Payload shape is defined by Meta. Signature verification via `x-hub-signature-256` is used when the channel has an App Secret configured; otherwise the webhook relies on URL secrecy and/or an `api_key` query parameter.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The channel id
+    /// * `request` - WhatsApp Cloud API webhook payload (`entry` + `changes`).
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// Empty response
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .channels
+    ///         .receive_whats_app_message(
+    ///             &"id".to_string(),
+    ///             &HashMap::from([("key".to_string(), serde_json::json!("value"))]),
+    ///             None,
+    ///         )
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn receive_whats_app_message(
+        &self,
+        id: &str,
+        request: &HashMap<String, serde_json::Value>,
+        options: Option<RequestOptions>,
+    ) -> Result<(), ApiError> {
+        self.http_client
+            .execute_request(
+                Method::POST,
+                &format!("channels/{}/whatsapp", id),
+                Some(serde_json::to_value(request).map_err(ApiError::Serialization)?),
+                None,
+                options,
+            )
+            .await
+    }
 }

@@ -8,15 +8,19 @@
 //! - **CTAs**
 //! - **Users**
 //! - **Benchmarks**
+//! - **Agent**
+//! - **Conversations**
 //! - **Channels**
 //! - **Shares**
 //! - **Webhooks**
 
 use crate::{ApiError, ClientConfig};
 
+pub mod agent;
 pub mod benchmarks;
 pub mod channels;
 pub mod chat;
+pub mod conversations;
 pub mod corpus;
 pub mod ct_as;
 pub mod evaluators;
@@ -31,6 +35,8 @@ pub struct ApologistAgentClient {
     pub ct_as: CtAsClient,
     pub users: UsersClient,
     pub benchmarks: BenchmarksClient,
+    pub agent: AgentClient,
+    pub conversations: ConversationsClient,
     pub channels: ChannelsClient,
     pub shares: SharesClient,
 }
@@ -45,15 +51,19 @@ impl ApologistAgentClient {
             ct_as: CtAsClient::new(config.clone())?,
             users: UsersClient::new(config.clone())?,
             benchmarks: BenchmarksClient::new(config.clone())?,
+            agent: AgentClient::new(config.clone())?,
+            conversations: ConversationsClient::new(config.clone())?,
             channels: ChannelsClient::new(config.clone())?,
             shares: SharesClient::new(config.clone())?,
         })
     }
 }
 
+pub use agent::AgentClient;
 pub use benchmarks::BenchmarksClient;
 pub use channels::ChannelsClient;
 pub use chat::ChatClient;
+pub use conversations::ConversationsClient;
 pub use corpus::CorpusClient;
 pub use ct_as::CtAsClient;
 pub use evaluators::EvaluatorsClient;
