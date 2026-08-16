@@ -7,6 +7,9 @@ pub struct User {
     pub id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub external_id: Option<String>,
+    /// First-write-wins acquisition / campaign referral code.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub referral_code: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub team_id: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -32,6 +35,7 @@ impl User {
 pub struct UserBuilder {
     id: Option<String>,
     external_id: Option<String>,
+    referral_code: Option<String>,
     team_id: Option<i64>,
     created_at: Option<String>,
     migrated_at: Option<String>,
@@ -48,6 +52,11 @@ impl UserBuilder {
 
     pub fn external_id(mut self, value: impl Into<String>) -> Self {
         self.external_id = Some(value.into());
+        self
+    }
+
+    pub fn referral_code(mut self, value: impl Into<String>) -> Self {
+        self.referral_code = Some(value.into());
         self
     }
 
@@ -86,6 +95,7 @@ impl UserBuilder {
         Ok(User {
             id: self.id,
             external_id: self.external_id,
+            referral_code: self.referral_code,
             team_id: self.team_id,
             created_at: self.created_at,
             migrated_at: self.migrated_at,

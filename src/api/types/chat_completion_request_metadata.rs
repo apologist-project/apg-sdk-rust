@@ -18,6 +18,9 @@ pub struct ChatCompletionRequestMetadata {
     pub session: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device: Option<String>,
+    /// Acquisition / campaign referral code stored on the user first-write-wins. Empty values are ignored; an existing user referral_code is never overwritten. The Agent UI maps ?ref=, then ?referral_code=, then ?utm_campaign= into this field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub referral_code: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub shared_prompt: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -44,6 +47,7 @@ pub struct ChatCompletionRequestMetadataBuilder {
     parent_host: Option<String>,
     session: Option<String>,
     device: Option<String>,
+    referral_code: Option<String>,
     shared_prompt: Option<i64>,
     translation: Option<String>,
     variables: Option<HashMap<String, Option<String>>>,
@@ -90,6 +94,11 @@ impl ChatCompletionRequestMetadataBuilder {
         self
     }
 
+    pub fn referral_code(mut self, value: impl Into<String>) -> Self {
+        self.referral_code = Some(value.into());
+        self
+    }
+
     pub fn shared_prompt(mut self, value: i64) -> Self {
         self.shared_prompt = Some(value);
         self
@@ -116,6 +125,7 @@ impl ChatCompletionRequestMetadataBuilder {
             parent_host: self.parent_host,
             session: self.session,
             device: self.device,
+            referral_code: self.referral_code,
             shared_prompt: self.shared_prompt,
             translation: self.translation,
             variables: self.variables,

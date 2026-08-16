@@ -5,6 +5,7 @@ pub mod benchmarks_benchmark_run_request_verbosity;
 pub mod benchmarks_get_benchmark_run_response;
 pub mod benchmarks_list_benchmark_runs_response;
 pub mod channels_get_discord_channel_status_response;
+pub mod channels_get_line_channel_status_response;
 pub mod channels_verify_facebook_webhook_request_hub_mode;
 pub mod chat_completion_request;
 pub mod chat_completion_request_logprobs;
@@ -79,6 +80,7 @@ pub use benchmarks_benchmark_run_request_verbosity::BenchmarkRunRequestVerbosity
 pub use benchmarks_get_benchmark_run_response::GetBenchmarkRunResponse;
 pub use benchmarks_list_benchmark_runs_response::ListBenchmarkRunsResponse;
 pub use channels_get_discord_channel_status_response::GetDiscordChannelStatusResponse;
+pub use channels_get_line_channel_status_response::GetLineChannelStatusResponse;
 pub use channels_verify_facebook_webhook_request_hub_mode::VerifyFacebookWebhookRequestHubMode;
 pub use chat_completion_request::ChatCompletionRequest;
 pub use chat_completion_request_logprobs::ChatCompletionRequestLogprobs;
