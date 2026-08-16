@@ -26,7 +26,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-apologist = "0.0.10"
+apologist = "0.0.13"
 ```
 
 Or install via cargo:
