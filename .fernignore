@@ -5,3 +5,6 @@ Cargo.toml
 .github/workflows/ci.yml
 
 LICENSE
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes

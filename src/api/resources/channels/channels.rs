@@ -114,6 +114,102 @@ impl ChannelsClient {
             .await
     }
 
+    /// Returns the status of the LINE channel. Used as a lightweight health/verification endpoint.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The channel id
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// JSON response from the API
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .channels
+    ///         .get_line_channel_status(&"id".to_string(), None)
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn get_line_channel_status(
+        &self,
+        id: &str,
+        options: Option<RequestOptions>,
+    ) -> Result<GetLineChannelStatusResponse, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::GET,
+                &format!("channels/{}/line", id),
+                None,
+                None,
+                options,
+            )
+            .await
+    }
+
+    /// Receives LINE Messaging API webhook events for the channel. Requests are verified via the `x-line-signature` HMAC-SHA256 (Base64) header using the channel secret unless an `api_key` is present. Payload shape is defined by LINE. The route acknowledges quickly and processes text `message` and `follow` events asynchronously.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The channel id
+    /// * `request` - LINE webhook payload (`destination` + `events`).
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// Empty response
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .channels
+    ///         .receive_line_webhook(
+    ///             &"id".to_string(),
+    ///             &HashMap::from([("key".to_string(), serde_json::json!("value"))]),
+    ///             None,
+    ///         )
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn receive_line_webhook(
+        &self,
+        id: &str,
+        request: &HashMap<String, serde_json::Value>,
+        options: Option<RequestOptions>,
+    ) -> Result<(), ApiError> {
+        self.http_client
+            .execute_request(
+                Method::POST,
+                &format!("channels/{}/line", id),
+                Some(serde_json::to_value(request).map_err(ApiError::Serialization)?),
+                None,
+                options,
+            )
+            .await
+    }
+
     /// Handles the Meta webhook verification handshake, echoing `hub.challenge` when `hub.verify_token` matches the channel's configured token.
     ///
     /// # Arguments
