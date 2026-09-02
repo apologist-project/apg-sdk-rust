@@ -14,6 +14,102 @@ impl ChannelsClient {
         })
     }
 
+    /// Returns the status of the Chatwoot channel. Used as a lightweight health/verification endpoint.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The channel id
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// JSON response from the API
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .channels
+    ///         .get_chatwoot_channel_status(&"id".to_string(), None)
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn get_chatwoot_channel_status(
+        &self,
+        id: &str,
+        options: Option<RequestOptions>,
+    ) -> Result<GetChatwootChannelStatusResponse, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::GET,
+                &format!("channels/{}/chatwoot", id),
+                None,
+                None,
+                options,
+            )
+            .await
+    }
+
+    /// Receives Chatwoot Agent Bot webhook events for the channel. Chatwoot owns the messaging inbox (Facebook, website widget, and others). This Agent replies through the Chatwoot API and maps native bot handoff to conversation pause/resume. Requests are verified via the `X-Chatwoot-Signature` HMAC-SHA256 header using the configured webhook secret unless an `api_key` is present and no secret is set. The route acknowledges immediately (Chatwoot times out in about 5 seconds) and processes events asynchronously.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The channel id
+    /// * `request` - Chatwoot Agent Bot webhook payload (`event` plus message or conversation fields).
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// Empty response
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .channels
+    ///         .receive_chatwoot_webhook(
+    ///             &"id".to_string(),
+    ///             &HashMap::from([("key".to_string(), serde_json::json!("value"))]),
+    ///             None,
+    ///         )
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn receive_chatwoot_webhook(
+        &self,
+        id: &str,
+        request: &HashMap<String, serde_json::Value>,
+        options: Option<RequestOptions>,
+    ) -> Result<(), ApiError> {
+        self.http_client
+            .execute_request(
+                Method::POST,
+                &format!("channels/{}/chatwoot", id),
+                Some(serde_json::to_value(request).map_err(ApiError::Serialization)?),
+                None,
+                options,
+            )
+            .await
+    }
+
     /// Returns the status of the Discord channel. Used as a lightweight health/verification endpoint.
     ///
     /// # Arguments

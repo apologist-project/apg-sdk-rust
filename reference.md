@@ -2069,6 +2069,137 @@ async fn main() {
 </dl>
 </details>
 
+<details><summary><code>client.users.<a href="/src/api/resources/users/client.rs">scrub_user</a>(user_id: String) -> Result&lt;ScrubUserResponse, ApiError&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replaces this user's message-adjacent text with a placeholder. Conversation rows, identifiers, flags, and analytics identity stay in place. Repeat calls finish leftover rows.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```rust
+use apologist::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    let config = ClientConfig {
+        api_key: Some("<value>".to_string()),
+        ..Default::default()
+    };
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    client.users.scrub_user(&"user_id".to_string(), None).await;
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `String` — The user's external id or internal id
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="/src/api/resources/users/client.rs">anonymize_user</a>(user_id: String) -> Result&lt;AnonymizeUserResponse, ApiError&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Redacts detected personal data in this user's message-adjacent text with regex, then an optional hosted redaction service when the Agent has that option on. Conversation rows, identifiers, flags, and analytics identity stay in place. Repeat calls finish leftover rows and skip text that is already redacted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```rust
+use apologist::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    let config = ClientConfig {
+        api_key: Some("<value>".to_string()),
+        ..Default::default()
+    };
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    client
+        .users
+        .anonymize_user(&"user_id".to_string(), None)
+        .await;
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `String` — The user's external id or internal id
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Benchmarks
 <details><summary><code>client.benchmarks.<a href="/src/api/resources/benchmarks/client.rs">list_benchmark_runs</a>(id: String, page: Option&lt;Option&lt;i64&gt;&gt;, per_page: Option&lt;Option&lt;i64&gt;&gt;, min_timestamp: Option&lt;Option&lt;String&gt;&gt;, max_timestamp: Option&lt;Option&lt;String&gt;&gt;, min_duration: Option&lt;Option&lt;String&gt;&gt;, max_duration: Option&lt;Option&lt;String&gt;&gt;, min_score: Option&lt;Option&lt;String&gt;&gt;, max_score: Option&lt;Option&lt;String&gt;&gt;, passed: Option&lt;Option&lt;String&gt;&gt;, min_responses: Option&lt;Option&lt;String&gt;&gt;, max_responses: Option&lt;Option&lt;String&gt;&gt;) -> Result&lt;ListBenchmarkRunsResponse, ApiError&gt;</code></summary>
 <dl>
@@ -2873,6 +3004,144 @@ async fn main() {
 </details>
 
 ## Channels
+<details><summary><code>client.channels.<a href="/src/api/resources/channels/client.rs">get_chatwoot_channel_status</a>(id: String) -> Result&lt;GetChatwootChannelStatusResponse, ApiError&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the status of the Chatwoot channel. Used as a lightweight health/verification endpoint.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```rust
+use apologist::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    let config = ClientConfig {
+        api_key: Some("<value>".to_string()),
+        ..Default::default()
+    };
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    client
+        .channels
+        .get_chatwoot_channel_status(&"id".to_string(), None)
+        .await;
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The channel id
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="/src/api/resources/channels/client.rs">receive_chatwoot_webhook</a>(id: String, request: std::collections::HashMap&lt;String, serde_json::Value&gt;) -> Result&lt;(), ApiError&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Receives Chatwoot Agent Bot webhook events for the channel. Chatwoot owns the messaging inbox (Facebook, website widget, and others). This Agent replies through the Chatwoot API and maps native bot handoff to conversation pause/resume. Requests are verified via the `X-Chatwoot-Signature` HMAC-SHA256 header using the configured webhook secret unless an `api_key` is present and no secret is set. The route acknowledges immediately (Chatwoot times out in about 5 seconds) and processes events asynchronously.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```rust
+use apologist::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    let config = ClientConfig {
+        api_key: Some("<value>".to_string()),
+        ..Default::default()
+    };
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    client
+        .channels
+        .receive_chatwoot_webhook(
+            &"id".to_string(),
+            &HashMap::from([("key".to_string(), serde_json::json!("value"))]),
+            None,
+        )
+        .await;
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The channel id
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.channels.<a href="/src/api/resources/channels/client.rs">get_discord_channel_status</a>(id: String) -> Result&lt;GetDiscordChannelStatusResponse, ApiError&gt;</code></summary>
 <dl>
 <dd>
