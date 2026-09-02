@@ -218,4 +218,91 @@ impl UsersClient {
             )
             .await
     }
+
+    /// Replaces this user's message-adjacent text with a placeholder. Conversation rows, identifiers, flags, and analytics identity stay in place. Repeat calls finish leftover rows.
+    ///
+    /// # Arguments
+    ///
+    /// * `user_id` - The user's external id or internal id
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// JSON response from the API
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client.users.scrub_user(&"user_id".to_string(), None).await;
+    /// }
+    /// ```
+    pub async fn scrub_user(
+        &self,
+        user_id: &str,
+        options: Option<RequestOptions>,
+    ) -> Result<ScrubUserResponse, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::POST,
+                &format!("users/{}/scrub", user_id),
+                None,
+                None,
+                options,
+            )
+            .await
+    }
+
+    /// Redacts detected personal data in this user's message-adjacent text with regex, then an optional hosted redaction service when the Agent has that option on. Conversation rows, identifiers, flags, and analytics identity stay in place. Repeat calls finish leftover rows and skip text that is already redacted.
+    ///
+    /// # Arguments
+    ///
+    /// * `user_id` - The user's external id or internal id
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// JSON response from the API
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .users
+    ///         .anonymize_user(&"user_id".to_string(), None)
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn anonymize_user(
+        &self,
+        user_id: &str,
+        options: Option<RequestOptions>,
+    ) -> Result<AnonymizeUserResponse, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::POST,
+                &format!("users/{}/anonymize", user_id),
+                None,
+                None,
+                options,
+            )
+            .await
+    }
 }
