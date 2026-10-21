@@ -1,11 +1,11 @@
 pub use crate::prelude::*;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(untagged)]
 pub enum EvaluatorRequestContent {
     String(String),
 
-    ValueList(Vec<serde_json::Value>),
+    EvaluatorRequestContentOneItemList(Vec<EvaluatorRequestContentOneItem>),
 }
 
 impl EvaluatorRequestContent {
@@ -13,8 +13,8 @@ impl EvaluatorRequestContent {
         matches!(self, Self::String(_))
     }
 
-    pub fn is_value_list(&self) -> bool {
-        matches!(self, Self::ValueList(_))
+    pub fn is_evaluator_request_content_one_item_list(&self) -> bool {
+        matches!(self, Self::EvaluatorRequestContentOneItemList(_))
     }
 
     pub fn as_string(&self) -> Option<&str> {
@@ -31,16 +31,20 @@ impl EvaluatorRequestContent {
         }
     }
 
-    pub fn as_value_list(&self) -> Option<&Vec<serde_json::Value>> {
+    pub fn as_evaluator_request_content_one_item_list(
+        &self,
+    ) -> Option<&Vec<EvaluatorRequestContentOneItem>> {
         match self {
-            Self::ValueList(value) => Some(value),
+            Self::EvaluatorRequestContentOneItemList(value) => Some(value),
             _ => None,
         }
     }
 
-    pub fn into_value_list(self) -> Option<Vec<serde_json::Value>> {
+    pub fn into_evaluator_request_content_one_item_list(
+        self,
+    ) -> Option<Vec<EvaluatorRequestContentOneItem>> {
         match self {
-            Self::ValueList(value) => Some(value),
+            Self::EvaluatorRequestContentOneItemList(value) => Some(value),
             _ => None,
         }
     }

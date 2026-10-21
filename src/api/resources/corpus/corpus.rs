@@ -69,7 +69,7 @@ impl CorpusClient {
     ///
     /// # Arguments
     ///
-    /// * `model` - The model type (e.g., 'source')
+    /// * `model` - Listing model. One of collection, contributor, organization, or source.
     /// * `id` - The ID of the corpus item
     /// * `options` - Additional request options such as headers, timeout, etc.
     ///
@@ -125,7 +125,7 @@ impl CorpusClient {
     ///
     /// # Arguments
     ///
-    /// * `model` - The model type (e.g., 'source')
+    /// * `model` - Listing model. One of collection, contributor, organization, or source.
     /// * `id` - The ID of the corpus item
     /// * `options` - Additional request options such as headers, timeout, etc.
     ///
@@ -181,7 +181,7 @@ impl CorpusClient {
     ///
     /// # Arguments
     ///
-    /// * `model` - The model type (e.g., 'source')
+    /// * `model` - Listing model. One of collection, contributor, organization, or source.
     /// * `id` - The numeric ID of the corpus item
     /// * `url` - URL-encoded destination to redirect to after logging the referral.
     /// * `options` - Additional request options such as headers, timeout, etc.
@@ -243,7 +243,7 @@ impl CorpusClient {
     ///
     /// # Arguments
     ///
-    /// * `model` - The model type (e.g., 'source')
+    /// * `model` - Listing model. One of collection, contributor, organization, or source.
     /// * `id` - The ID of the corpus item
     /// * `options` - Additional request options such as headers, timeout, etc.
     ///

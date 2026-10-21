@@ -1,11 +1,11 @@
 pub use crate::prelude::*;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(untagged)]
 pub enum BenchmarkRunRequestContent {
     OptionalString(Option<String>),
 
-    OptionalValueList(Option<Vec<serde_json::Value>>),
+    OptionalBenchmarkRunRequestContentOneItemList(Option<Vec<BenchmarkRunRequestContentOneItem>>),
 }
 
 impl BenchmarkRunRequestContent {
@@ -13,8 +13,8 @@ impl BenchmarkRunRequestContent {
         matches!(self, Self::OptionalString(_))
     }
 
-    pub fn is_optional_value_list(&self) -> bool {
-        matches!(self, Self::OptionalValueList(_))
+    pub fn is_optional_benchmark_run_request_content_one_item_list(&self) -> bool {
+        matches!(self, Self::OptionalBenchmarkRunRequestContentOneItemList(_))
     }
 
     pub fn as_optional_string(&self) -> Option<&str> {
@@ -31,16 +31,20 @@ impl BenchmarkRunRequestContent {
         }
     }
 
-    pub fn as_optional_value_list(&self) -> Option<&Vec<serde_json::Value>> {
+    pub fn as_optional_benchmark_run_request_content_one_item_list(
+        &self,
+    ) -> Option<&Vec<BenchmarkRunRequestContentOneItem>> {
         match self {
-            Self::OptionalValueList(value) => value.as_ref(),
+            Self::OptionalBenchmarkRunRequestContentOneItemList(value) => value.as_ref(),
             _ => None,
         }
     }
 
-    pub fn into_optional_value_list(self) -> Option<Vec<serde_json::Value>> {
+    pub fn into_optional_benchmark_run_request_content_one_item_list(
+        self,
+    ) -> Option<Vec<BenchmarkRunRequestContentOneItem>> {
         match self {
-            Self::OptionalValueList(value) => value,
+            Self::OptionalBenchmarkRunRequestContentOneItemList(value) => value,
             _ => None,
         }
     }

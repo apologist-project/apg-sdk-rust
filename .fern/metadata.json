@@ -9,9 +9,9 @@
     "packageDocumentation": "https://docs.apologist.ai",
     "packageDescription": "Official Rust SDK for the Apologist Agent API"
   },
-  "originGitCommit": "4af5bf08f559e976f40a4e68bcf7cb0e46fec955",
+  "originGitCommit": "aa8fb4b4d05d7116588d03dfe64ebe361e8ba59b",
   "originGitCommitIsDirty": false,
   "invokedBy": "ci",
   "ciProvider": "github",
-  "sdkVersion": "0.0.16"
+  "sdkVersion": "0.0.19"
 }

@@ -63,8 +63,7 @@ impl ChannelsClient {
     ///
     /// # Arguments
     ///
-    /// * `id` - The channel id
-    /// * `request` - Chatwoot Agent Bot webhook payload (`event` plus message or conversation fields).
+    /// * `channel_id` - The channel id
     /// * `options` - Additional request options such as headers, timeout, etc.
     ///
     /// # Returns
@@ -86,23 +85,65 @@ impl ChannelsClient {
     ///     client
     ///         .channels
     ///         .receive_chatwoot_webhook(
-    ///             &"id".to_string(),
-    ///             &HashMap::from([("key".to_string(), serde_json::json!("value"))]),
-    ///             None,
+    ///             &"91".to_string(),
+    ///             &ChatwootWebhookPayload {
+    ///                 event: Some("message_created".to_string()),
+    ///                 id: Some(9001),
+    ///                 content: Some("Hello from Messenger".to_string()),
+    ///                 message_type: Some("incoming".to_string()),
+    ///                 private: Some(false),
+    ///                 account: Some(ChatwootWebhookPayloadAccount {
+    ///                     id: Some(7),
+    ///                     ..Default::default()
+    ///                 }),
+    ///                 sender: Some(ChatwootWebhookPayloadSender {
+    ///                     id: Some(55),
+    ///                     name: Some("Pat".to_string()),
+    ///                     r#type: Some("contact".to_string()),
+    ///                     ..Default::default()
+    ///                 }),
+    ///                 conversation: Some(ChatwootWebhookPayloadConversation {
+    ///                     id: Some(42),
+    ///                     status: Some("pending".to_string()),
+    ///                     account: Some(ChatwootWebhookPayloadConversationAccount {
+    ///                         id: Some(7),
+    ///                         ..Default::default()
+    ///                     }),
+    ///                     meta: Some(ChatwootConversationMeta {
+    ///                         assignee_type: Some("AgentBot".to_string()),
+    ///                         sender: Some(ChatwootConversationMetaSender {
+    ///                             id: Some(55),
+    ///                             name: Some("Pat".to_string()),
+    ///                             ..Default::default()
+    ///                         }),
+    ///                         ..Default::default()
+    ///                     }),
+    ///                     ..Default::default()
+    ///                 }),
+    ///                 ..Default::default()
+    ///             },
+    ///             Some(
+    ///                 RequestOptions::new()
+    ///                     .additional_header(
+    ///                         "X-Chatwoot-Signature",
+    ///                         "sha256=2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+    ///                     )
+    ///                     .additional_header("X-Chatwoot-Timestamp", "1710000000"),
+    ///             ),
     ///         )
     ///         .await;
     /// }
     /// ```
     pub async fn receive_chatwoot_webhook(
         &self,
-        id: &str,
-        request: &HashMap<String, serde_json::Value>,
+        channel_id: &str,
+        request: &ChatwootWebhookPayload,
         options: Option<RequestOptions>,
     ) -> Result<(), ApiError> {
         self.http_client
             .execute_request(
                 Method::POST,
-                &format!("channels/{}/chatwoot", id),
+                &format!("channels/{}/chatwoot", channel_id),
                 Some(serde_json::to_value(request).map_err(ApiError::Serialization)?),
                 None,
                 options,
@@ -563,7 +604,7 @@ impl ChannelsClient {
             .await
     }
 
-    /// Handles the Meta WhatsApp Cloud API webhook verification handshake, echoing `hub.challenge` when `hub.verify_token` matches the channel's configured token.
+    /// Handles the Meta WhatsApp Cloud API webhook verification handshake. Requires an `api_key` query parameter or `x-api-key` header, then echoes `hub.challenge` when `hub.verify_token` matches the channel's configured token.
     ///
     /// # Arguments
     ///
@@ -621,7 +662,7 @@ impl ChannelsClient {
             .await
     }
 
-    /// Receives WhatsApp Cloud API message events for the channel. Payload shape is defined by Meta. Signature verification via `x-hub-signature-256` is used when the channel has an App Secret configured; otherwise the webhook relies on URL secrecy and/or an `api_key` query parameter.
+    /// Receives WhatsApp Cloud API message events for the channel. Payload shape is defined by Meta. An `api_key` query parameter or `x-api-key` header is required. Signature verification via `x-hub-signature-256` is also required when the channel has an App Secret configured.
     ///
     /// # Arguments
     ///

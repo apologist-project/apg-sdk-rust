@@ -6,6 +6,7 @@ pub struct ChatCompletionRequestMetadata {
     pub anonymous: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub conversation: Option<String>,
+    /// ISO language code for this turn, or `auto` to detect from the prompt.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

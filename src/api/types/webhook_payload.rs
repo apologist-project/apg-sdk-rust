@@ -1,6 +1,6 @@
 pub use crate::prelude::*;
 
-/// Canonical JSON body POSTed to a configured webhook URL. `notification`, `event`, and `agent` are always present; the remaining sections appear only when relevant to the event. Treat the payload as additive and ignore unrecognised fields.
+/// Canonical JSON body POSTed to a configured webhook URL. `notification`, `event`, and `agent` are always present; `trace` is present when the event ran inside an instrumented API request. The remaining sections appear only when relevant to the event. Treat the payload as additive and ignore unrecognised fields.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct WebhookPayload {
     #[serde(default)]
@@ -23,11 +23,17 @@ pub struct WebhookPayload {
     /// Present for guardrail_trigger events.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub guardrail: Option<WebhookNamedRef>,
-    /// Present for CTA/guardrail events that ran an evaluation.
+    /// Present for automation_trigger events.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub automation: Option<WebhookNamedRef>,
+    /// Present for CTA, guardrail, or automation events that ran an evaluation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub evaluator: Option<WebhookNamedRef>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub evaluation: Option<WebhookEvaluation>,
+    /// OpenTelemetry context for the API request that produced this event. Present when the Agent created or continued a W3C trace.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub trace: Option<WebhookPayloadTrace>,
 }
 
 impl WebhookPayload {
@@ -47,8 +53,10 @@ pub struct WebhookPayloadBuilder {
     platform: Option<WebhookNamedRef>,
     cta: Option<WebhookCta>,
     guardrail: Option<WebhookNamedRef>,
+    automation: Option<WebhookNamedRef>,
     evaluator: Option<WebhookNamedRef>,
     evaluation: Option<WebhookEvaluation>,
+    trace: Option<WebhookPayloadTrace>,
 }
 
 impl WebhookPayloadBuilder {
@@ -92,6 +100,11 @@ impl WebhookPayloadBuilder {
         self
     }
 
+    pub fn automation(mut self, value: WebhookNamedRef) -> Self {
+        self.automation = Some(value);
+        self
+    }
+
     pub fn evaluator(mut self, value: WebhookNamedRef) -> Self {
         self.evaluator = Some(value);
         self
@@ -99,6 +112,11 @@ impl WebhookPayloadBuilder {
 
     pub fn evaluation(mut self, value: WebhookEvaluation) -> Self {
         self.evaluation = Some(value);
+        self
+    }
+
+    pub fn trace(mut self, value: WebhookPayloadTrace) -> Self {
+        self.trace = Some(value);
         self
     }
 
@@ -123,8 +141,10 @@ impl WebhookPayloadBuilder {
             platform: self.platform,
             cta: self.cta,
             guardrail: self.guardrail,
+            automation: self.automation,
             evaluator: self.evaluator,
             evaluation: self.evaluation,
+            trace: self.trace,
         })
     }
 }
