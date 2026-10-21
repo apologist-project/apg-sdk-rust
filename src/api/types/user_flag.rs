@@ -7,6 +7,9 @@ pub struct UserFlag {
     pub id: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// Optional channel user-attribute key. When null, Agent derives a lowercase snake_case key from name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
     /// Upstream owning user id when present (mirrored from Ignite).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_id: Option<i64>,
@@ -27,6 +30,7 @@ impl UserFlag {
 pub struct UserFlagBuilder {
     id: Option<i64>,
     name: Option<String>,
+    key: Option<String>,
     user_id: Option<i64>,
     team_id: Option<i64>,
     synced_at: Option<String>,
@@ -40,6 +44,11 @@ impl UserFlagBuilder {
 
     pub fn name(mut self, value: impl Into<String>) -> Self {
         self.name = Some(value.into());
+        self
+    }
+
+    pub fn key(mut self, value: impl Into<String>) -> Self {
+        self.key = Some(value.into());
         self
     }
 
@@ -63,6 +72,7 @@ impl UserFlagBuilder {
         Ok(UserFlag {
             id: self.id,
             name: self.name,
+            key: self.key,
             user_id: self.user_id,
             team_id: self.team_id,
             synced_at: self.synced_at,

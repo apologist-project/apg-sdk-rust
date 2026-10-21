@@ -26,7 +26,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-apologist = "0.0.16"
+apologist = "0.0.19"
 ```
 
 Or install via cargo:
@@ -56,8 +56,13 @@ async fn main() {
     client
         .chat
         .create_chat_completion(
-            &ChatCompletionRequest::Unknown(serde_json::json!({"key":"value"})),
-            None,
+            &ChatCompletionRequest {
+                ..Default::default()
+            },
+            Some(RequestOptions::new().additional_header(
+                "traceparent",
+                "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+            )),
         )
         .await;
 }
@@ -102,7 +107,7 @@ The SDK exports all request types as Rust structs. Simply import them from the c
 ```rust
 use apologist::prelude::{*};
 
-let request = LikeRequest {
+let request = ChatCompletionRequest {
     ...
 };
 ```

@@ -42,7 +42,10 @@ impl ChatClient {
     ///             &ListChatCompletionsQueryRequest {
     ///                 ..Default::default()
     ///             },
-    ///             None,
+    ///             Some(RequestOptions::new().additional_header(
+    ///                 "traceparent",
+    ///                 "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+    ///             )),
     ///         )
     ///         .await;
     /// }
@@ -107,8 +110,13 @@ impl ChatClient {
     ///     client
     ///         .chat
     ///         .create_chat_completion(
-    ///             &ChatCompletionRequest::Unknown(serde_json::json!({"key":"value"})),
-    ///             None,
+    ///             &ChatCompletionRequest {
+    ///                 ..Default::default()
+    ///             },
+    ///             Some(RequestOptions::new().additional_header(
+    ///                 "traceparent",
+    ///                 "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+    ///             )),
     ///         )
     ///         .await;
     /// }
@@ -319,6 +327,93 @@ impl ChatClient {
                 Method::POST,
                 &format!("chat/completions/{}/share", id),
                 Some(serde_json::to_value(request).map_err(ApiError::Serialization)?),
+                None,
+                options,
+            )
+            .await
+    }
+
+    /// Replaces this chat completion's message-adjacent text with a placeholder. Conversation rows, identifiers, likes, flags, and analytics identity stay in place. Repeat calls finish leftover rows.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The numeric id or UUID of the chat completion
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// JSON response from the API
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client.chat.scrub_completion(&"id".to_string(), None).await;
+    /// }
+    /// ```
+    pub async fn scrub_completion(
+        &self,
+        id: &str,
+        options: Option<RequestOptions>,
+    ) -> Result<ScrubCompletionResponse, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::POST,
+                &format!("chat/completions/{}/scrub", id),
+                None,
+                None,
+                options,
+            )
+            .await
+    }
+
+    /// Redacts detected personal data in this chat completion's message-adjacent text with regex, then an optional hosted redaction service when the Agent has that option on. Conversation rows, identifiers, likes, flags, and analytics identity stay in place. Repeat calls finish leftover rows and skip text that is already redacted.
+    ///
+    /// # Arguments
+    ///
+    /// * `id` - The numeric id or UUID of the chat completion
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// JSON response from the API
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use apologist::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         api_key: Some("<value>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    ///     client
+    ///         .chat
+    ///         .anonymize_completion(&"id".to_string(), None)
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn anonymize_completion(
+        &self,
+        id: &str,
+        options: Option<RequestOptions>,
+    ) -> Result<AnonymizeCompletionResponse, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::POST,
+                &format!("chat/completions/{}/anonymize", id),
+                None,
                 None,
                 options,
             )

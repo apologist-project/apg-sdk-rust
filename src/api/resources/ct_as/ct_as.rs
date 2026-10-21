@@ -38,7 +38,9 @@ impl CtAsClient {
     ///     client
     ///         .ct_as
     ///         .match_ctas(
-    ///             &CtaMatchRequest::Unknown(serde_json::json!({"key":"value"})),
+    ///             &CtaMatchRequest {
+    ///                 ..Default::default()
+    ///             },
     ///             None,
     ///         )
     ///         .await;

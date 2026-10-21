@@ -1,6 +1,6 @@
 pub use crate::prelude::*;
 
-/// Result of an evaluation run for CTA/guardrail events.
+/// Result of an evaluation run for CTA, guardrail, or automation events.
 #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
 pub struct WebhookEvaluation {
     #[serde(skip_serializing_if = "Option::is_none")]

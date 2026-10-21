@@ -6,6 +6,7 @@ pub struct EvaluatorRequest {
     pub frequency_penalty: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub confidence_threshold: Option<f64>,
+    /// Text to evaluate, an array of strings, or chat messages.
     pub content: EvaluatorRequestContent,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,

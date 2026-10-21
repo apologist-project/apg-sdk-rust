@@ -42,7 +42,10 @@ async fn main() {
             &ListChatCompletionsQueryRequest {
                 ..Default::default()
             },
-            None,
+            Some(RequestOptions::new().additional_header(
+                "traceparent",
+                "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+            )),
         )
         .await;
 }
@@ -247,12 +250,264 @@ async fn main() {
     client
         .chat
         .create_chat_completion(
-            &ChatCompletionRequest::Unknown(serde_json::json!({"key":"value"})),
-            None,
+            &ChatCompletionRequest {
+                ..Default::default()
+            },
+            Some(RequestOptions::new().additional_header(
+                "traceparent",
+                "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+            )),
         )
         .await;
 }
 ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**audio:** `Option<Option<std::collections::HashMap<String, serde_json::Value>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**frequency_penalty:** `Option<Option<f64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**logit_bias:** `Option<Option<std::collections::HashMap<String, serde_json::Value>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**logprobs:** `Option<Option<ChatCompletionRequestLogprobs>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**top_logprobs:** `Option<Option<i64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_completion_tokens:** `Option<Option<i64>>` — Output-token cap for this request. An API key may set this above the agent's Max Output Tokens. The value cannot exceed the model's maximum. Requests without an API key keep the agent's Max Output Tokens.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_tokens:** `Option<Option<i64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `Option<Option<Vec<ChatMessage>>>` — Chat messages in OpenAI format. Required when `prompt` is omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `Option<Option<ChatCompletionRequestMetadata>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modalities:** `Option<Option<Vec<serde_json::Value>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**n:** `Option<Option<i64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parallel_tool_calls:** `Option<Option<bool>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prediction:** `Option<Option<std::collections::HashMap<String, serde_json::Value>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**presence_penalty:** `Option<Option<f64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prompt:** `Option<Option<String>>` — User text to complete. Required when `messages` is omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reasoning_effort:** `Option<Option<ChatCompletionRequestReasoningEffort>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verbosity:** `Option<Option<ChatCompletionRequestVerbosity>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**response_format:** `Option<Option<ChatCompletionRequestResponseFormat>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**seed:** `Option<Option<i64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**service_tier:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stop:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**store:** `Option<Option<bool>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stream:** `Option<bool>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stream_options:** `Option<Option<std::collections::HashMap<String, serde_json::Value>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**temperature:** `Option<Option<f64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**top_p:** `Option<Option<f64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tools:** `Option<Option<Vec<serde_json::Value>>>` — OpenAI-compatible function tool definitions. Passed through to the model as declaration-only tools (the client executes them and returns role=tool messages).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_choice:** `Option<Option<ChatCompletionRequestToolChoice>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user:** `Option<Option<String>>` 
+    
 </dd>
 </dl>
 </dd>
@@ -591,6 +846,137 @@ async fn main() {
 </dl>
 </details>
 
+<details><summary><code>client.chat.<a href="/src/api/resources/chat/client.rs">scrub_completion</a>(id: String) -> Result&lt;ScrubCompletionResponse, ApiError&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replaces this chat completion's message-adjacent text with a placeholder. Conversation rows, identifiers, likes, flags, and analytics identity stay in place. Repeat calls finish leftover rows.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```rust
+use apologist::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    let config = ClientConfig {
+        api_key: Some("<value>".to_string()),
+        ..Default::default()
+    };
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    client.chat.scrub_completion(&"id".to_string(), None).await;
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The numeric id or UUID of the chat completion
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.chat.<a href="/src/api/resources/chat/client.rs">anonymize_completion</a>(id: String) -> Result&lt;AnonymizeCompletionResponse, ApiError&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Redacts detected personal data in this chat completion's message-adjacent text with regex, then an optional hosted redaction service when the Agent has that option on. Conversation rows, identifiers, likes, flags, and analytics identity stay in place. Repeat calls finish leftover rows and skip text that is already redacted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```rust
+use apologist::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    let config = ClientConfig {
+        api_key: Some("<value>".to_string()),
+        ..Default::default()
+    };
+    let client = ApologistAgentClient::new(config).expect("Failed to build client");
+    client
+        .chat
+        .anonymize_completion(&"id".to_string(), None)
+        .await;
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The numeric id or UUID of the chat completion
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.chat.<a href="/src/api/resources/chat/client.rs">get_chat_completion</a>(id: String) -> Result&lt;GetChatCompletionResponse, ApiError&gt;</code></summary>
 <dl>
 <dd>
@@ -821,7 +1207,7 @@ async fn main() {
 <dl>
 <dd>
 
-**model:** `String` — The model type (e.g., 'source')
+**model:** `String` — Listing model. One of collection, contributor, organization, or source.
     
 </dd>
 </dl>
@@ -920,7 +1306,7 @@ async fn main() {
 <dl>
 <dd>
 
-**model:** `String` — The model type (e.g., 'source')
+**model:** `String` — Listing model. One of collection, contributor, organization, or source.
     
 </dd>
 </dl>
@@ -1020,7 +1406,7 @@ async fn main() {
 <dl>
 <dd>
 
-**model:** `String` — The model type (e.g., 'source')
+**model:** `String` — Listing model. One of collection, contributor, organization, or source.
     
 </dd>
 </dl>
@@ -1127,7 +1513,7 @@ async fn main() {
 <dl>
 <dd>
 
-**model:** `String` — The model type (e.g., 'source')
+**model:** `String` — Listing model. One of collection, contributor, organization, or source.
     
 </dd>
 </dl>
@@ -1427,7 +1813,7 @@ async fn main() {
 <dl>
 <dd>
 
-**content:** `EvaluatorRequestContent` 
+**content:** `EvaluatorRequestContent` — Text to evaluate, an array of strings, or chat messages.
     
 </dd>
 </dl>
@@ -1610,12 +1996,93 @@ async fn main() {
     client
         .ct_as
         .match_ctas(
-            &CtaMatchRequest::Unknown(serde_json::json!({"key":"value"})),
+            &CtaMatchRequest {
+                ..Default::default()
+            },
             None,
         )
         .await;
 }
 ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**conversation:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**device:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**language:** `Option<Option<String>>` — ISO language code, or `auto` to detect from the prompt.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Option<Option<i64>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `Option<Option<Vec<ChatMessage>>>` — Chat messages in OpenAI format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**session:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user:** `Option<Option<String>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variables:** `Option<Option<std::collections::HashMap<String, Option<String>>>>` — Flat string key/value pairs substituted into `{key}` placeholders in evaluator prompts run during CTA matching. Not persisted.
+    
 </dd>
 </dl>
 </dd>
@@ -2374,7 +2841,7 @@ async fn main() {
 <dl>
 <dd>
 
-Executes a benchmark run and returns the aggregated result with nested evaluators, questions, and a flat evaluations array.
+Executes a benchmark run and returns the aggregated result with nested evaluators, questions, and a flat evaluations array. A run that cannot finish inside one request returns 202 with `completed_at` null and continues in the background. Poll Get a benchmark run until `completed_at` is set.
 </dd>
 </dl>
 </dd>
@@ -3071,7 +3538,7 @@ async fn main() {
 </dl>
 </details>
 
-<details><summary><code>client.channels.<a href="/src/api/resources/channels/client.rs">receive_chatwoot_webhook</a>(id: String, request: std::collections::HashMap&lt;String, serde_json::Value&gt;) -> Result&lt;(), ApiError&gt;</code></summary>
+<details><summary><code>client.channels.<a href="/src/api/resources/channels/client.rs">receive_chatwoot_webhook</a>(channel_id: String, request: ChatwootWebhookPayload) -> Result&lt;(), ApiError&gt;</code></summary>
 <dl>
 <dd>
 
@@ -3110,9 +3577,51 @@ async fn main() {
     client
         .channels
         .receive_chatwoot_webhook(
-            &"id".to_string(),
-            &HashMap::from([("key".to_string(), serde_json::json!("value"))]),
-            None,
+            &"91".to_string(),
+            &ChatwootWebhookPayload {
+                event: Some("message_created".to_string()),
+                id: Some(9001),
+                content: Some("Hello from Messenger".to_string()),
+                message_type: Some("incoming".to_string()),
+                private: Some(false),
+                account: Some(ChatwootWebhookPayloadAccount {
+                    id: Some(7),
+                    ..Default::default()
+                }),
+                sender: Some(ChatwootWebhookPayloadSender {
+                    id: Some(55),
+                    name: Some("Pat".to_string()),
+                    r#type: Some("contact".to_string()),
+                    ..Default::default()
+                }),
+                conversation: Some(ChatwootWebhookPayloadConversation {
+                    id: Some(42),
+                    status: Some("pending".to_string()),
+                    account: Some(ChatwootWebhookPayloadConversationAccount {
+                        id: Some(7),
+                        ..Default::default()
+                    }),
+                    meta: Some(ChatwootConversationMeta {
+                        assignee_type: Some("AgentBot".to_string()),
+                        sender: Some(ChatwootConversationMetaSender {
+                            id: Some(55),
+                            name: Some("Pat".to_string()),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            },
+            Some(
+                RequestOptions::new()
+                    .additional_header(
+                        "X-Chatwoot-Signature",
+                        "sha256=2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+                    )
+                    .additional_header("X-Chatwoot-Timestamp", "1710000000"),
+            ),
         )
         .await;
 }
@@ -3130,7 +3639,87 @@ async fn main() {
 <dl>
 <dd>
 
-**id:** `String` — The channel id
+**channel_id:** `String` — The channel id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**event:** `Option<String>` — Chatwoot event name. Incoming visitor messages use `message_created`. Staff takeover and assignment use conversation events such as `conversation_opened`, `conversation_status_changed`, and `conversation_updated`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `Option<i64>` — Message id on `message_*` events. Conversation display id on `conversation_*` events.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**content:** `Option<Option<String>>` — Message text. Present on message events. Empty or private notes are ignored.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message_type:** `Option<String>` — Incoming visitor messages are `incoming` (or `0`). Staff replies are `outgoing` (or `1`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**private:** `Option<bool>` — When true, the Agent ignores the message (Chatwoot private note).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account:** `Option<ChatwootWebhookPayloadAccount>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sender:** `Option<ChatwootWebhookPayloadSender>` — Present on message events.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**conversation:** `Option<ChatwootWebhookPayloadConversation>` — Nested on message events. Conversation events send `id`, `status`, and `meta` at the top level instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Option<String>` — Top-level conversation status on conversation events.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**meta:** `Option<ChatwootConversationMeta>` — Top-level conversation meta on conversation events.
     
 </dd>
 </dl>
@@ -3831,7 +4420,7 @@ async fn main() {
 <dl>
 <dd>
 
-Handles the Meta WhatsApp Cloud API webhook verification handshake, echoing `hub.challenge` when `hub.verify_token` matches the channel's configured token.
+Handles the Meta WhatsApp Cloud API webhook verification handshake. Requires an `api_key` query parameter or `x-api-key` header, then echoes `hub.challenge` when `hub.verify_token` matches the channel's configured token.
 </dd>
 </dl>
 </dd>
@@ -3930,7 +4519,7 @@ async fn main() {
 <dl>
 <dd>
 
-Receives WhatsApp Cloud API message events for the channel. Payload shape is defined by Meta. Signature verification via `x-hub-signature-256` is used when the channel has an App Secret configured; otherwise the webhook relies on URL secrecy and/or an `api_key` query parameter.
+Receives WhatsApp Cloud API message events for the channel. Payload shape is defined by Meta. An `api_key` query parameter or `x-api-key` header is required. Signature verification via `x-hub-signature-256` is also required when the channel has an App Secret configured.
 </dd>
 </dl>
 </dd>
